@@ -3,10 +3,11 @@ var app = {
 	init : function(){
 		$(document).ready(function() {
 			// first thing: see previous messages
-			// app.fetch();	
+			app.fetch();	
 			app.handleSubmit();
 			$('#send').on('click', function(){
 				//console.log($('#send').text());
+				app.send('this message');
 			});
 		});
 		var friendsArray = [];	
@@ -15,17 +16,24 @@ var app = {
 		$.ajax({
 			type: "POST",
 			url: "https://api.parse.com/1/classes/chatterbox",
-			data: JSON.stringify(message)
-			// success: success,
-			// dataType: dataType
+			data: JSON.stringify(message),
+  			contentType: 'application/json',
+  			success: function (data) {
+    			console.log('chatterbox: Message sent');
+  			},
+  			error: function (data) {
+    // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+    			console.error('chatterbox: Failed to send message');
+  			}
 		})
 	},
 	fetch: function(){
 		$.ajax({
 			type: "GET",
-			url: "https://api.parse.com/1/classes/chatterbox"
-			// data: data,
-			// success: success,
+			url: "https://api.parse.com/1/classes/chatterbox",
+			success: function(data){
+				console.log(data);
+			}
 			// dataType: dataType
 		});
 	},
@@ -35,7 +43,7 @@ var app = {
 	addMessage: function(message){
 
 		var obj = {
-			username:"Chris and Doris say:",
+			username: String(window.location.search.slice(10)+":"),
 			text: message,
 			roomname:"s"
 		};
@@ -62,9 +70,10 @@ var app = {
 			app.addMessage(msm)
 			//console.log(msm);
 		})
-	}	
+	},
 };
 
-
 app.init();
+
+app.server = "https://api.parse.com/1/classes/chatterbox";	
 
