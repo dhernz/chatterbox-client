@@ -54,11 +54,12 @@ var app = {
 					//add each cleaned piece of data to the chat client.
 					// $("#serverInfo").append("<label> <input type="button" value ='' 'app.addFriend("+ value.username +")'>"  + value.username.toUpperCase() +'</label>'
 					// 	+"<p>"+ value.text+"</p>");
-
-
-					$("#chats").append('<label>'+value.username.toUpperCase() +'</label>');
-					$("#chats").append('<input type="button" value="Add Friend">');
+					value.username = (app.checkUp(value.username)) ? "Badguy" : value.username;
+					var usr = value.username;
+					
+					$("#chats").append('<label class='+ usr +' onclick="app.addFriend.call(this)">'+usr.toUpperCase() +'</label>');
 					$("#chats").append("<p>"+ value.text+"</p>");
+
 
 				})
 			}
@@ -79,17 +80,15 @@ var app = {
 		//Currently, it only collects a message.
 		//We have access to the username from the String(window.location.search.slice(10))
 		//We need to build out the roomname variable.
-		$("#chats").append("<label>"+obj.username.toUpperCase()+"</label>"+"<p>"+ obj.text+"</p>");
+		$("#localinfo").append("<label>"+obj.username.toUpperCase()+"</label>"+"<p>"+ obj.text+"</p>");
 	},
 	addRoom : function(roomname){
 		$("#roomSelect").append('<option value="'+ roomname +'" />');
 	},
-	addFriend : function(username){
-		var btn2 = $(".addFriend")
-		btn2.on('click', function(){
-		//here we will push into the friends array from the anchor in the message.
-		//friendsArray.push();
-		})
+	addFriend : function(string){
+	 
+		app.myFriendList[this.className] = true;
+		console.log(app.myFriendList);
 	},
 	handleSubmit : function(){
 		var btn = $("#send")
@@ -107,4 +106,4 @@ var app = {
 
 app.init();
 app.server = "https://api.parse.com/1/classes/chatterbox";	
-
+app.myFriendList = {};

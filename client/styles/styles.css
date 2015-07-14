@@ -19,13 +19,13 @@ body {
    margin: 10px;   
 }
 
-#serverInfo p{
+#localinfo p{
     padding-left: 10px;
     border-left: solid #29A329;
     margin: 10px;
 }
 
-#serverInfo label{
+#localinfo label{
    
    color:  #29A329;
    font-weight: bold;
