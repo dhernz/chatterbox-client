@@ -106,8 +106,11 @@ send : function(message){
 	addFriend : function(string){
 
 		app.myFriendList[this.className] = true;
-		this.style.color = "red";
-		console.log(app.myFriendList);
+	
+	 "$('."+ this.className+"')".style.color = "red"; 
+
+		// .style.color = "red";
+		// console.log(app.myFriendList);
 	},
 	handleSubmit : function(){
 		var btn = $("#send")
