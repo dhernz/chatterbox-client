@@ -16,15 +16,22 @@
   <div id="main">
     <h1>Telegraph Academy ChatRoom</h1>
     <form method="post" id="menuForm" name="menuForm">
-      <select>
-        <option value="addRoom">
-          New room
+      <select id="roomoptions" onchange="app.fetch.call(this)">
+        <option value="addRoom" selected="selected">
+          Lobby
+        </option>
+           <option>
+          Other Rooms
         </option>
       </select>
+      <br>
+      <br>
+      <input type="text" id="roomSelect" maxlength="10" placeholder="Add a Room">
       <form>
+      <input id="newroom" type="button" value="Add Room"> 
         <br><br>
         <form id="createMessage">
-          <input type='text' id="message" >
+          <textarea type='text' id="message" cols="50" rows="5" > </textarea> 
           <input id = 'send' type="button" value="Submit">
         </form>
         <button id="clear" type="button" value="Submit">
